@@ -1,0 +1,81 @@
+[
+    {
+        "id": 1,
+        "name": "T-shirt",
+        "price": 3000,
+        "description": "Dries quickly",
+        "imgURL": "./Pictures/t_shirt.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Sweater",
+        "price": 3500,
+        "description": "Warm, breathable and comfortable to wear.",
+        "imgURL": "./Pictures/sweater.jpg"
+      
+    },
+    {
+        "id": 3,
+        "name": "Trousers",
+        "price": 10000,
+        "description": "Designed for regular hiking in snowy terrain.",
+        "imgURL": "./Pictures/trousers.jpg"
+       
+    },
+    {
+        "id": 4,
+        "name": "Coat",
+        "price": 15000,
+        "description": "Waterproof jacket for regular hiking.",
+        "imgURL": "./Pictures/coat.jpg"
+        
+    },
+    {
+        "id": 5,
+        "name": "Cap",
+        "price": 2000,
+        "description": "Ventilates well even in hot weather.",
+        "imgURL": "./Pictures/cap.jpg"
+        
+    },
+    {
+        "id": 6,
+        "name": "Scarf",
+        "price": 2000,
+        "description": "Multifunctional scarf for every adventure.",
+        "imgURL": "./Pictures/scarf.jpg"
+      
+    },
+    {
+        "id": 7,
+        "name": "Gloves",
+        "price": 2000,
+        "description": "To protect the hands from the cold.",
+        "imgURL": "./Pictures/gloves.jpg"
+       
+    },
+    {
+        "id": 8,
+        "name": "Hiking boots",
+        "price": 30000,
+        "description": "Heat resistant and waterproof",
+        "imgURL": "./Pictures/hiking_boots.jpg"
+      
+    },
+    {
+        "id": 9,
+        "name": "Backpack",
+        "price": 15000,
+        "description": "A 30-litre backpack is comfortable and practical for low-altitude terrain.",
+        "imgURL": "./Pictures/backpack.jpg"
+
+    },
+    {
+        "id": 10,
+        "name": "Sunglasses",
+        "price": 20000,
+        "description": "High level protection. Fashionable, everyday wear.",
+        "imgURL": "./Pictures/sunglasses.jpg"
+      
+    }
+]
