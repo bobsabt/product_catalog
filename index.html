@@ -5,10 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProductCatalog</title>
-    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="baseStyle.css">
+    <link rel="stylesheet" href="cardStyle.css">
+    <script type="module" src="./index.js"></script>
 </head>
 <body>
-    <div id="#productsContainer"></div>
-    <script type="module" src="./index.js"></script>
+    <div class="container">
+        <div class="sort">
+            <div class="sort-box">
+                <h3>Sort by price: </h3>
+                <button id="arrow-up" class="arrow-btn">
+                    <img  class="arrow" src="./Pictures/arrow_up.jpg" alt="arrowUP">
+                </button>
+                <button id="arrow-down" class="arrow-btn">
+                    <img class="arrow" src="./Pictures/arrow_down.jpg" alt="arrowDown">
+                </button>
+            </div>
+            <div class="range">
+                <h3>Filter by price: </h3>
+                <div >
+                    <div class="range-slider">
+                      <span class="range-selected"></span>
+                    </div>
+                    <div class="range-input">
+                      <input id="minInput" type="range" class="min" min="" max="" value="" step="10">
+                      <input id="maxInput" type="range" class="max" min="" max="" value="" step="10">
+                    </div>
+                    <div class="range-price">      
+                      <label for="min">Min</label>
+                      <input id="minInputShow" type="number" name="min" min="" max="" value="">      
+                      <label for="max">Max</label>
+                      <input id="maxInputShow" type="number" name="max" min="" max="" value="">      
+                    </div>
+                </div> 
+            </div>
+            <div class="cashier-box">
+                <h2>Cashier</h2>
+            </div>
+        </div>
+        </div>
+        <div id="productsContainer"></div>
+        <div id="cashierContainer">
+        </div>
+    </div>
 </body>
 </html>
