@@ -51,26 +51,44 @@ body, input, textarea{
 
 .container {
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 900px;
     width: 100%;
 }
 
-#productsContainer{
+#productsContainer {
     display: grid;
     grid-template-rows: repeat(1, 1fr);
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     justify-items: center;
     gap: 1rem;
 }
 
-.sort-box{
-    margin: 2rem;
+@media screen and (max-width: 899px) {
+    #productsContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #productsContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.sort-box {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.arrow{
+@media screen and (max-width: 400px) {
+    .sort-box {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+.arrow {
     width: 2rem;
     border: 1px solid grey;
     border-radius: 4px;
@@ -81,6 +99,21 @@ body, input, textarea{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 1rem;
+}
+
+@media screen and (max-width: 735px) {
+    .sort {
+       flex-wrap: wrap;
+       justify-content: center;
+       gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 899px) {
+    .sort {
+        margin: 1rem 5rem;
+    }
 }
 
 .arrow-btn {
@@ -95,12 +128,18 @@ body, input, textarea{
     align-items: flex-start;
 }
 
+@media screen and (max-width: 550px) {
+    .range {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
 .range h3 {
     margin-right: 1rem;
 }
 
 .range-slider {
-    
     height: 5px;
     position: relative;
     background-color: lightgray;
@@ -108,7 +147,6 @@ body, input, textarea{
 }
 
 .range-selected {
-   
     height: 100%;
     left: 0;
     right: 0;
@@ -116,10 +154,12 @@ body, input, textarea{
     border-radius: 5px;
     background-color: #001F3F;
 }
+
 .range-input {
     position: relative;
-  }
-  .range-input input {
+}
+
+.range-input input {
     position: absolute;
     width: 100%;
     height: 5px;
@@ -128,6 +168,11 @@ body, input, textarea{
     pointer-events: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+.range-price input::-webkit-inner-spin-button, 
+.range-input input::-webkit-outer-spin-button {
+    -webkit-appearance: none; 
 }
 
 .range-input input::-webkit-slider-thumb {
@@ -157,11 +202,13 @@ body, input, textarea{
     justify-content: center;
     align-items: center;
 }
+
 .range-price label {
     margin-right: 5px;
     font-size: 1rem;
     font-weight: bolder;
 }
+
 .range-price input {
     width: 4rem;
     font-size: 1rem;
@@ -179,4 +226,51 @@ body, input, textarea{
     background-color: orange;
     border-radius: 4px;
     padding: 5px 20px;
+}
+
+.display-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+@media screen and (max-width: 735px) {
+    .display-container {
+       flex-wrap: wrap;
+    }
+}
+
+#cashierContainer {
+    border: 2px solid #001F3F;
+    margin-left: 2rem;
+    width: 18rem;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 735px) {
+    #cashierContainer {
+       margin-top: 2rem;
+       margin-left: 0;
+    }
+}
+
+#cashierContainer h1 {
+    background-color: orange;
+    width: 100%;
+    text-align: center;
+}
+
+.total {
+    padding: 0.5rem;
+    width: 100%;
+    text-align: left;
+}
+
+.total div {
+    display: flex;
+    justify-content: space-between;
 }

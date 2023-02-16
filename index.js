@@ -9,94 +9,92 @@ let highestPrice = Number.MAX_VALUE;
 let actualMinPrice;
 let actualMaxPrice;
 
-let cart = {};
+let cart;
 
 const range = document.querySelector(".range-selected");
 const rangeInput = document.querySelectorAll(".range-input input");
 const rangePrice = document.querySelectorAll(".range-price input");
+const finalItemNumber = document.getElementById("totalNumber");
+const finalAmount = document.getElementById("totalAmount");
+console.log(finalItemNumber)
 
 if (isDataValid) {
-    lowestPrice = data.reduce((currentMin, item) => { return Math.min(currentMin,item.price)}, Number.MAX_VALUE)
-    highestPrice = data.reduce((currentMax, item) => { return Math.max(currentMax, item.price)}, Number.MIN_VALUE)  
+    lowestPrice = data.reduce((currentMin, item) => { return Math.min(currentMin,item.price)}, Number.MAX_VALUE);
+    highestPrice = data.reduce((currentMax, item) => { return Math.max(currentMax, item.price)}, Number.MIN_VALUE);
 }
 
 const addProductToCart = (event) => {
-    console.log(event)
-    let id = event.currentTarget.id
+    let id = event.currentTarget.id;
 
-    cart = localStorage.getItem('cart')
+    cart = localStorage.getItem('cart');
 
     if (!cart) {
-        cart = []
-        cart.push({"id": id, "count": 1})
+        cart = [];
+        cart.push({"id": id, "count": 1});
     } else {
-        cart = JSON.parse(cart)
-
-        let selectedItem = cart.find(item => item.id === id)
+        cart = JSON.parse(cart);
+        let selectedItem = cart.find(item => item.id === id);
 
         if(selectedItem) {
             selectedItem.count++;
         }
         else{
-            cart.push({"id": id, "count": 1})
+            cart.push({"id": id, "count": 1});
         }
     }
-    localStorage.setItem('cart', JSON.stringify(cart))
-    displayCart()
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
 }
 
 const removeSelectedItem = (event) => {
-    let id = event.srcElement.id
+    let id = event.srcElement.id;
 
-    cart = localStorage.getItem('cart')
-    cart = JSON.parse(cart)
-    const selectedItemsAfterRemove = cart.filter(item => item.id !== id)
+    cart = localStorage.getItem('cart');
+    cart = JSON.parse(cart);
+    const selectedItemsAfterRemove = cart.filter(item => item.id !== id);
 
-    localStorage.setItem('cart', JSON.stringify(selectedItemsAfterRemove))
+    localStorage.setItem('cart', JSON.stringify(selectedItemsAfterRemove));
 
     displayCart()
 }
 
 const displayCart = () => {
-    let cart = localStorage.getItem('cart')
-    cart = JSON.parse(cart)
-    console.log(cart)
-    const cashierContainer = document.getElementById('cashierContainer')
+    let cart = localStorage.getItem('cart');
+    cart = JSON.parse(cart);
+
+    const cashierContainer = document.getElementById('selectedItemsBox');
 
     let totalAmount = 0;
     let totalNumber = 0;
-
-    const totalAmountTitle = document.createElement('h2');
-    totalAmountTitle.innerHTML = "Total amount: " + totalAmount;
-    cashierContainer.appendChild(totalAmountTitle);
-
-    const totalNumberTitle = document.createElement('h2');
-    totalNumberTitle.innerHTML = "Total number: " + totalNumber;
-    cashierContainer.appendChild(totalNumberTitle);
-
-    if(!cart || cart.length === 0) {
-        const emptyMsg = document.createElement('h2');
-        emptyMsg.innerHTML = "Your cart is empty";
-        cashierContainer.insertAdjacentElement("afterbegin", emptyMsg);
-        return
-    }
-
-    while(cashierContainer.firstChild) {
+    
+    while (cashierContainer.firstChild) {
         cashierContainer.removeChild(cashierContainer.lastChild);
     }
-
+    
+    if(cart.length === 0) {
+      const emptyMsg = document.createElement('h2');
+      emptyMsg.innerHTML = "Your cart is empty";
+      emptyMsg.setAttribute("id", "empty-msg");
+      cashierContainer.appendChild(emptyMsg);
+      finalAmount.innerText = totalAmount + ". -Ft";
+      finalItemNumber.innerText = totalNumber;
+      return
+    }
+    
     for (let index = 0; index < cart.length; index++) {
-        const temp = data.find(data => data.id === parseInt(cart[index].id))
+        const temp = data.find(data => data.id === parseInt(cart[index].id));
         
         const selectedItemBox = document.createElement('div');
         selectedItemBox.classList.add("selectedItem-box");
 
         const itemName = document.createElement('h4');
         itemName.innerHTML = temp.name;
+        itemName.style.width = "100px"
         selectedItemBox.appendChild(itemName);
 
         const itemNumber = document.createElement('h5');
         itemNumber.innerHTML = cart[index].count + " X";
+
         selectedItemBox.appendChild(itemNumber);
 
         const itemPrice = document.createElement('h5');
@@ -115,37 +113,32 @@ const displayCart = () => {
         totalAmount += temp.price * cart[index].count;
         totalNumber++;
     }
+    finalAmount.innerText = totalAmount + ". -Ft";
+    finalItemNumber.innerText = totalNumber;
 
-    
 }
 
 const displayProducts = (sortOrder, actualMinPrice, actualMaxPrice) => {
-
-    const productsContainer = document.getElementById('productsContainer')
+    const productsContainer = document.getElementById('productsContainer');
     
-    const minInput = document.getElementById('minInput')
-    minInput.setAttribute("min", lowestPrice);
-    minInput.setAttribute("max", highestPrice);
-    minInput.setAttribute("value", lowestPrice);
+    const minInput = document.getElementsByClassName('minInput');
+    for (let index = 0; index < minInput.length; index++) {
+      minInput[index].setAttribute("min", lowestPrice);
+      minInput[index].setAttribute("max", highestPrice);
+      minInput[index].setAttribute("value", lowestPrice);
+      
+    }
     
-    const maxInput = document.getElementById('maxInput')
-    maxInput.setAttribute("min", lowestPrice);
-    maxInput.setAttribute("max", highestPrice);
-    maxInput.setAttribute("value", highestPrice);
-
-    const minInputShow = document.getElementById('minInputShow')
-    minInputShow.setAttribute("min", lowestPrice);
-    minInputShow.setAttribute("max", highestPrice);
-    minInputShow.setAttribute("value", lowestPrice);
-
-    const maxInputShow = document.getElementById('maxInputShow')
-    maxInputShow.setAttribute("min", lowestPrice);
-    maxInputShow.setAttribute("max", highestPrice);
-    maxInputShow.setAttribute("value", highestPrice);
+    const maxInput = document.getElementsByClassName('maxInput');
+    for (let index = 0; index < maxInput.length; index++) {
+      maxInput[index].setAttribute("min", lowestPrice);
+      maxInput[index].setAttribute("max", highestPrice);
+      maxInput[index].setAttribute("value", highestPrice);  
+    }
 
     while (productsContainer.firstChild) {
         productsContainer.removeChild(productsContainer.lastChild);
-      }
+    }
 
     if (!isDataValid) {
         const errorMsg = document.createElement('h1');
@@ -153,30 +146,30 @@ const displayProducts = (sortOrder, actualMinPrice, actualMaxPrice) => {
         productsContainer.appendChild(errorMsg);
         return
     }
-    // sort and filter the products
-    const filteredProducts = data.filter(item => item.price >= actualMinPrice && item.price <= actualMaxPrice)
-    const productInfo = filteredProducts.sort((a,b)=> (a.price - b.price)*sortOrder)
-    
 
+    const filteredProducts = data.filter(item => item.price >= actualMinPrice && item.price <= actualMaxPrice);
+    const productInfo = filteredProducts.sort((a,b)=> (a.price - b.price)*sortOrder);
+    
     productInfo.map(item => {
         const productBox = document.createElement('div');
         productBox.classList.add("product-box");
 
-        //image need alt
         const productIMG = document.createElement("img");
         productIMG.classList.add("image");
+        productIMG.setAttribute("alt", "img" + item.name);
         productIMG.src = item.imgURL;
         productBox.appendChild(productIMG);
 
         const productCart = document.createElement("img");
         productCart.classList.add("cart");
         productCart.setAttribute("id", item.id);
+        productCart.setAttribute("alt", "cart");
         productCart.src = "./Pictures/cart.jpg";
         productCart.addEventListener("click", addProductToCart, false)
         productBox.appendChild(productCart);
 
         const productName = document.createElement('h1');
-        productName.innerHTML = item.name + item.id;
+        productName.innerHTML = item.name;
         productBox.appendChild(productName);
 
         const productDescription = document.createElement('p');
@@ -190,23 +183,20 @@ const displayProducts = (sortOrder, actualMinPrice, actualMaxPrice) => {
         productsContainer.appendChild(productBox);
     })
 
-    displayCart()
+    displayCart();
 };
 
 window.addEventListener('load', displayProducts(sortOrder, lowestPrice, highestPrice));
 
-
-
-
-const arrowDown = document.getElementById("arrow-down")
-const arrowUp = document.getElementById("arrow-up")
+const arrowDown = document.getElementById("arrow-down");
+const arrowUp = document.getElementById("arrow-up");
 arrowUp.addEventListener('click', () => {
     sortOrder = 1;
-    displayProducts(sortOrder, lowestPrice, highestPrice)
+    displayProducts(sortOrder, lowestPrice, highestPrice);
 });
 arrowDown.addEventListener('click', () => {
     sortOrder = -1;
-    displayProducts(sortOrder, lowestPrice, highestPrice)
+    displayProducts(sortOrder, lowestPrice, highestPrice);
 });
 
 rangeInput.forEach((input) => {

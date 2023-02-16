@@ -14,12 +14,14 @@
         <div class="sort">
             <div class="sort-box">
                 <h3>Sort by price: </h3>
-                <button id="arrow-up" class="arrow-btn">
-                    <img  class="arrow" src="./Pictures/arrow_up.jpg" alt="arrowUP">
-                </button>
-                <button id="arrow-down" class="arrow-btn">
-                    <img class="arrow" src="./Pictures/arrow_down.jpg" alt="arrowDown">
-                </button>
+                <div class="sort-box">
+                    <button id="arrow-up" class="arrow-btn">
+                        <img  class="arrow" src="./Pictures/arrow_up.jpg" alt="arrowUP">
+                    </button>
+                    <button id="arrow-down" class="arrow-btn">
+                        <img class="arrow" src="./Pictures/arrow_down.jpg" alt="arrowDown">
+                    </button>
+                </div>
             </div>
             <div class="range">
                 <h3>Filter by price: </h3>
@@ -28,24 +30,36 @@
                       <span class="range-selected"></span>
                     </div>
                     <div class="range-input">
-                      <input id="minInput" type="range" class="min" min="" max="" value="" step="10">
-                      <input id="maxInput" type="range" class="max" min="" max="" value="" step="10">
+                      <input class="minInput" type="range" class="min" min="" max="" value="" step="10">
+                      <input class="maxInput" type="range" class="max" min="" max="" value="" step="10">
                     </div>
                     <div class="range-price">      
                       <label for="min">Min</label>
-                      <input id="minInputShow" type="number" name="min" min="" max="" value="">      
+                      <input class="minInput" type="number" name="min" min="" max="" value="" disabled>      
                       <label for="max">Max</label>
-                      <input id="maxInputShow" type="number" name="max" min="" max="" value="">      
+                      <input class="maxInput" type="number" name="max" min="" max="" value="" disabled>      
                     </div>
                 </div> 
             </div>
-            <div class="cashier-box">
-                <h2>Cashier</h2>
+        </div>
+        </div>
+        <div class="display-container">
+            <div id="productsContainer"></div>
+            <div id="cashierContainer">
+                <h1>Cashier</h1>
+                <div class="total">
+                    <div>
+                        <h3>Total Number: </h3>
+                        <h3 id="totalNumber">h</h3>
+                    </div>
+                    <div>
+                        <h3>Total Amount: </h3>
+                        <h3 id="totalAmount"></h3>
+                    </div>
+                </div>
+                <div id="selectedItemsBox">
+                </div>
             </div>
-        </div>
-        </div>
-        <div id="productsContainer"></div>
-        <div id="cashierContainer">
         </div>
     </div>
 </body>

@@ -1,6 +1,5 @@
 .product-box{
     border: 2px solid #001F3F;
-    
     padding: 0.5rem;
     width: 12rem;
     height: 18rem;
@@ -18,13 +17,13 @@
     width: 10rem;
 }
 
-.product-box h1{
+.product-box h1 {
     text-align: center;
     font-size: 1.25rem;
     font-weight: 900;
 }
 
-.product-box h3{
+.product-box h3 {
     text-align: center;
     background-color: #001F3F;
     color: white;
@@ -38,13 +37,13 @@
     right: 0;
 }
 
-.product-box p{
+.product-box p {
     text-align: center;
     font-size: 0.75rem;
     font-weight: bolder; 
 }
 
-.cart{
+.cart {
     width: 2.25rem;
     background-color: orange;
     border-radius: 4px;
@@ -55,17 +54,16 @@
     right: 0.25rem;
 }
 
-.selectedItem-box{
+.selectedItem-box {
     border: 2px solid #001F3F;
     border-radius: 4px;
-    
-    padding: 0.5rem;
+    padding: 0.5rem 1.75rem 0.5rem 0.5rem;
     margin: 0.5rem;
     width: 15rem;
 
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     gap: 0.25rem;
 
     position: relative;
@@ -76,12 +74,9 @@
     color: white;
     font-weight: bolder;
     padding: 0 0.5rem;
-
-   
     height: 100%;
 
     position: absolute;
     top: 0;
     right: 0;
-    
 }
