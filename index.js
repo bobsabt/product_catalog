@@ -6,8 +6,8 @@ let sortOrder = 1;
 let lowestPrice = Number.MIN_VALUE;
 let highestPrice = Number.MAX_VALUE;
 
-let actualMinPrice;
-let actualMaxPrice;
+let actualMinPrice = lowestPrice;
+let actualMaxPrice = highestPrice;
 
 let cart;
 
@@ -16,7 +16,6 @@ const rangeInput = document.querySelectorAll(".range-input input");
 const rangePrice = document.querySelectorAll(".range-price input");
 const finalItemNumber = document.getElementById("totalNumber");
 const finalAmount = document.getElementById("totalAmount");
-console.log(finalItemNumber)
 
 if (isDataValid) {
     lowestPrice = data.reduce((currentMin, item) => { return Math.min(currentMin,item.price)}, Number.MAX_VALUE);
@@ -72,9 +71,11 @@ const displayCart = () => {
     }
     
     if(cart.length === 0) {
-      const emptyMsg = document.createElement('h2');
+      const emptyMsg = document.createElement('h3');
       emptyMsg.innerHTML = "Your cart is empty";
       emptyMsg.setAttribute("id", "empty-msg");
+      emptyMsg.style.color = "grey";
+      emptyMsg.style.paddingBottom = "10px";
       cashierContainer.appendChild(emptyMsg);
       finalAmount.innerText = totalAmount + ". -Ft";
       finalItemNumber.innerText = totalNumber;
@@ -188,54 +189,58 @@ const displayProducts = (sortOrder, actualMinPrice, actualMaxPrice) => {
 
 window.addEventListener('load', displayProducts(sortOrder, lowestPrice, highestPrice));
 
+rangeInput.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    let minRange = parseInt(rangeInput[0].value);
+    let maxRange = parseInt(rangeInput[1].value);
+    if (maxRange - minRange < lowestPrice) {     
+      if (e.target.className === "min") {
+        rangeInput[0].value = maxRange - lowestPrice;        
+      } else {
+        rangeInput[1].value = minRange + lowestPrice;        
+      }
+    } else {
+      rangePrice[0].value = minRange;
+      rangePrice[1].value = maxRange;
+      range.style.left = (minRange / rangeInput[0].max) * 100 + "%";
+      range.style.right = 100 - (maxRange / rangeInput[1].max) * 100 + "%";
+    }
+    actualMaxPrice = maxRange
+    actualMinPrice = minRange
+    displayProducts(sortOrder, actualMinPrice, actualMaxPrice)
+  },
+)});
+
+rangePrice.forEach((input) => {
+  
+  console.log("first")
+  input.addEventListener("input", (e) => {
+    let minPrice = rangePrice[0].value;
+    let maxPrice = rangePrice[1].value;
+    if (maxPrice - minPrice >= lowestPrice && maxPrice <= rangeInput[1].max) {
+      if (e.target.className === "min") {
+        rangeInput[0].value = minPrice;
+        range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+      } else {
+        rangeInput[1].value = maxPrice;
+        range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+      }
+    }
+  },
+)});
+
 const arrowDown = document.getElementById("arrow-down");
 const arrowUp = document.getElementById("arrow-up");
 arrowUp.addEventListener('click', () => {
     sortOrder = 1;
-    displayProducts(sortOrder, lowestPrice, highestPrice);
+    displayProducts(sortOrder, actualMinPrice, actualMaxPrice);
 });
 arrowDown.addEventListener('click', () => {
     sortOrder = -1;
-    displayProducts(sortOrder, lowestPrice, highestPrice);
+    displayProducts(sortOrder, actualMinPrice, actualMaxPrice);
 });
 
-rangeInput.forEach((input) => {
-    input.addEventListener("input", (e) => {
-      let minRange = parseInt(rangeInput[0].value);
-      let maxRange = parseInt(rangeInput[1].value);
-      if (maxRange - minRange < lowestPrice) {     
-        if (e.target.className === "min") {
-          rangeInput[0].value = maxRange - lowestPrice;        
-        } else {
-          rangeInput[1].value = minRange + lowestPrice;        
-        }
-      } else {
-        rangePrice[0].value = minRange;
-        rangePrice[1].value = maxRange;
-        range.style.left = (minRange / rangeInput[0].max) * 100 + "%";
-        range.style.right = 100 - (maxRange / rangeInput[1].max) * 100 + "%";
-      }
-      actualMaxPrice = maxRange
-      actualMinPrice = minRange;
-      displayProducts(sortOrder, actualMinPrice, actualMaxPrice)
-    },
-)});
 
-rangePrice.forEach((input) => {
-    input.addEventListener("input", (e) => {
-      let minPrice = rangePrice[0].value;
-      let maxPrice = rangePrice[1].value;
-      if (maxPrice - minPrice >= lowestPrice && maxPrice <= rangeInput[1].max) {
-        if (e.target.className === "min") {
-          rangeInput[0].value = minPrice;
-          range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
-        } else {
-          rangeInput[1].value = maxPrice;
-          range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-        }
-      }
-    },
-)});
 
 
 
