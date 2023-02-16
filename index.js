@@ -212,8 +212,6 @@ rangeInput.forEach((input) => {
 )});
 
 rangePrice.forEach((input) => {
-  
-  console.log("first")
   input.addEventListener("input", (e) => {
     let minPrice = rangePrice[0].value;
     let maxPrice = rangePrice[1].value;
