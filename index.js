@@ -57,6 +57,35 @@ const removeSelectedItem = (event) => {
     displayCart()
 }
 
+const increaseNumberOfProduct = (event) => {
+  let id = event.srcElement.id;
+  cart = localStorage.getItem('cart');
+  cart = JSON.parse(cart);
+
+  let itemToIncrease = cart.find(item => item.id == id);
+  itemToIncrease.count++;
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  displayCart()
+}
+
+const decreaseNumberOfProduct = (event) => {
+  let id = event.srcElement.id;
+  cart = localStorage.getItem('cart');
+  cart = JSON.parse(cart);
+
+  let itemToDecrease = cart.find(item => item.id == id);
+  if (itemToDecrease.count > 1) {
+    itemToDecrease.count--;
+  } else {
+    removeSelectedItem(event);
+    return;
+  }
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  displayCart()
+}
+
 const displayCart = () => {
     let cart = localStorage.getItem('cart');
     cart = JSON.parse(cart);
@@ -88,25 +117,40 @@ const displayCart = () => {
         const selectedItemBox = document.createElement('div');
         selectedItemBox.classList.add("selectedItem-box");
 
-        const itemName = document.createElement('h4');
+        const itemName = document.createElement('h5');
         itemName.innerHTML = temp.name;
-        itemName.style.width = "100px"
+        itemName.style.width = "80px"
         selectedItemBox.appendChild(itemName);
 
-        const itemNumber = document.createElement('h5');
-        itemNumber.innerHTML = cart[index].count + " X";
+        const decreaseItem = document.createElement('button');
+        decreaseItem.innerHTML = "-";
+        decreaseItem.setAttribute("id", temp.id);
+        decreaseItem.classList.add("itemNum-change-btn");
+        decreaseItem.addEventListener("click", decreaseNumberOfProduct, false)
+        selectedItemBox.appendChild(decreaseItem);
 
+        const itemNumber = document.createElement('h5');
+        itemNumber.innerHTML = cart[index].count;
         selectedItemBox.appendChild(itemNumber);
+
+        const increaseItem = document.createElement('button');
+        increaseItem.innerHTML = "+";
+        increaseItem.setAttribute("id", temp.id);
+        increaseItem.classList.add("itemNum-change-btn");
+        increaseItem.addEventListener("click", increaseNumberOfProduct, false)
+        selectedItemBox.appendChild(increaseItem);
+
 
         const itemPrice = document.createElement('h5');
         itemPrice.innerHTML = temp.price + ". -Ft";
+        itemPrice.style.width = "65px";
         selectedItemBox.appendChild(itemPrice);
 
         const itemRemove = document.createElement('button');
         itemRemove.classList.add("remove-btn"); 
         itemRemove.setAttribute("id", temp.id);
         itemRemove.innerHTML = "X";
-        selectedItemBox.addEventListener("click", removeSelectedItem, false)
+        itemRemove.addEventListener("click", removeSelectedItem, false)
         selectedItemBox.appendChild(itemRemove);
     
         cashierContainer.appendChild(selectedItemBox);
