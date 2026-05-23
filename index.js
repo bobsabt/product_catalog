@@ -1,4 +1,21 @@
-import data from  './data.json' assert {type:'json'};
+let data = [];
+
+fetch('./data.json')
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+    init();
+  });
+
+function init() {
+  lowestPrice = data.reduce((min, item) => Math.min(min, item.price), Number.MAX_VALUE);
+  highestPrice = data.reduce((max, item) => Math.max(max, item.price), Number.MIN_VALUE);
+
+  actualMinPrice = lowestPrice;
+  actualMaxPrice = highestPrice;
+
+  displayProducts(sortOrder, actualMinPrice, actualMaxPrice);
+}
 
 const isDataValid = data ? true : false;
 let sortOrder = 1;
@@ -88,7 +105,8 @@ const decreaseNumberOfProduct = (event) => {
 
 const displayCart = () => {
     let cart = localStorage.getItem('cart');
-    cart = JSON.parse(cart);
+    //cart = JSON.parse(cart);
+    cart = cart ? JSON.parse(cart) : [];
 
     const cashierContainer = document.getElementById('selectedItemsBox');
 
